@@ -1,3 +1,8 @@
+import 'package:class_one/Fragement/HomeFragement.dart';
+import 'package:class_one/Fragement/MessageFragement.dart';
+import 'package:class_one/Fragement/NotificationFragement.dart';
+import 'package:class_one/Fragement/SearchFragement.dart';
+import 'package:class_one/Fragement/SettingFragement.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,117 +22,34 @@ class MyApp extends StatelessWidget {
 
 class HomeActivity extends StatelessWidget {
   const HomeActivity({super.key});
-
-  MySnackBar(message, context) {
-    return ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  MyAlertDialog(context) {
-    return showDialog(context: context, builder: (BuildContext context) {
-      return Expanded(child: AlertDialog(
-        title: Text('Warning!!'),
-        content: Text('Do you love me!!'),
-        actions: [
-          TextButton(onPressed: (){
-            MySnackBar('Yes I will do', context);
-            Navigator.of(context).pop();
-            },
-              child: Text('Yes')),
-          TextButton(onPressed: (){
-            Navigator.of(context).pop();
-            },
-              child: Text('No')),
-        ],
-      ));
-    });
-  }
-
-  @override
+    @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Inventory App'),
-          titleSpacing: 14,
-          // centerTitle: true,
-          titleTextStyle: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            // backgroundColor: Colors.green
+    return DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('My Apps'),
+            bottom: TabBar(
+              isScrollable: true,
+              tabs: [
+                Tab(icon: Icon(Icons.home),text: ('Home'),),
+                Tab(icon: Icon(Icons.message),text: ('Message'),),
+                Tab(icon: Icon(Icons.search),text: ('Search'),),
+                Tab(icon: Icon(Icons.notification_add),text: ('Notification'),),
+                Tab(icon: Icon(Icons.settings),text: ('Setting'),),
+              ],
+            ),
           ),
-          backgroundColor: Colors.green,
-          elevation: 7,
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.search),
-              iconSize: 30,
-              color: Colors.blue,
-              padding: EdgeInsets.all(16),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.email),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.notification_add),
-            ),
-          ],
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          body: TabBarView(
             children: [
-
-              ElevatedButton(
-
-                child: Text('Press'),
-                onPressed: () {MyAlertDialog(context);},
-              ),
-
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextField(decoration: InputDecoration(
-                  labelText: 'First Name',
-                  border: OutlineInputBorder(),),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextField(decoration: InputDecoration(
-                  labelText: 'Last  Name',
-                  border: OutlineInputBorder(),),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: TextField(decoration: InputDecoration(
-                  labelText: 'Email Name',
-                  border: OutlineInputBorder(),),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                    minimumSize: Size(double.infinity, 60)
-                  ),
-                  onPressed: (){MySnackBar('Tumi Click korla kn?', context); },child: Text('Click Here'),)
-              )
-
-
-
-
-
-
+              HomeFragement(),
+              MessageFragement(),
+              SearchFragement(),
+              NotificationFragement(),
+              SettingFragement()
             ],
           ),
-        ),
-        
+        )
     );
   }
 }
